@@ -1,5 +1,5 @@
-from map import Map
-from map import Node
+from .map import Map
+from .map import Node
 
 class Game:
     """游戏类"""
@@ -17,9 +17,10 @@ class Game:
         self.HP = HP
         self.gold = gold
         self.relic = relic
-        self.map = Map(15)
+        self.map = Map()
         self.now_node = self.map.map_all[0][0]
 
 def new_game(name: str, max_HP: int, HP: int, gold: int, relic: list[int] = []) -> Game:
     """创建游戏"""
     GAME = Game(name, max_HP, HP, gold, relic)
+    return GAME

@@ -3,24 +3,45 @@ import sys
 import os
 
 # 导入自定义模块
-from src import game
+from src.Game.start_game import new_game
 
 # 常量定义
-THE_SILENT = {
+CHARACTER = [{
     "name": "The Silent",
     "Max HP": 70,
     "HP": 70,
     "gold": 99,
     "Relic": [1],
-}
+}]
 
 def main():
     """主函数"""
     _ = input("请按回车键开始游戏...")
+    print("选择角色：\n")
+    for i in range(len(CHARACTER)):
+        print(f"{i + 1}. {CHARACTER[i]['name']}")
+    input_num = int(input("")) - 1
+    os.system("cls")
     game_end = False
+    GAME = new_game(
+        CHARACTER[input_num]["name"],
+        CHARACTER[input_num]["Max HP"],
+        CHARACTER[input_num]["HP"],
+        CHARACTER[input_num]["gold"],
+        CHARACTER[input_num]["Relic"]
+        )
     while not game_end:
-        os.system("cls")
-        print("hello world！")
+        inp = input("1.地图\n2.++\n0.退出")
+        if inp == "1":
+            os.system("cls")
+            GAME.map.print_map()
+        elif inp == "2":
+            os.system("cls")
+            GAME.map.plane_add()
+            GAME.map.print_map()
+        elif inp == "0":
+            os.system("cls")
+            game_end = True
     return 0
 
 

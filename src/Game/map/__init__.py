@@ -1,2 +1,2 @@
-from map import *
-from node import *
+from .map import *
+from .node import *

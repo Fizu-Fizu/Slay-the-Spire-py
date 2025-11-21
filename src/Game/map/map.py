@@ -1,6 +1,6 @@
 import random
 import math
-from node import Node
+from .node import Node
 
 class Map:
     # 地图
@@ -29,7 +29,7 @@ class Map:
                 now_width = random.choice(self.Probability)
                 # 如果为1,创建节点组 3 or 6
                 if now_width == 1:
-                    map_all.insert(0, [Node(random.choice([3, 6]), i)])
+                    map_all.insert(0, [Node(random.choice([3, 5]), i)])
                     continue
                 # 节点类型,0-6 对应图标["💀","💰","🔥","👻","😈","💎","❓"]
                 _Probability = [1,2,3,4,5,6]
