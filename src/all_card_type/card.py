@@ -1,0 +1,2 @@
+class card:
+    0
