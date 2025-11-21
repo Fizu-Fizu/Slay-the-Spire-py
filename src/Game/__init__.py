@@ -1,1 +1,2 @@
-from start_game import *
+from map import *
+from all_card_type import *
