@@ -1,8 +1,14 @@
 import math
 
 class Buff:
+    # buffID
+    buff_id: int
     # 持续回合
     duration: int = 0
+    # 每回合是否掉duration
+    drop_duration: bool = False
+    # 是否会变成负数
+    negative: bool = False
     # 触发
     # 每一回合开始
     on_turn_start: bool = False
@@ -22,16 +28,19 @@ class Buff:
     on_block: bool = False
     # 键名
     trigger_variables = [
-    "on_turn_start",
-    "on_card_play",
-    "on_turn_end",
-    "on_damage_taken",
-    "on_attacked",
-    "on_attack",
-    "on_block",
-    "on_attacked_effect",
-    "on_attack_effect"
-]
+        "duration",
+        "drop_duration",
+        "negative",
+        "on_turn_start",
+        "on_card_play",
+        "on_turn_end",
+        "on_damage_taken",
+        "on_attacked",
+        "on_attack",
+        "on_block",
+        "on_attacked_effect",
+        "on_attack_effect"
+        ]
 
     def __init__(self, number_: int):
         import json
@@ -44,14 +53,14 @@ class Buff:
             # 检查键名
             if number in data:
                 buff_data = data[number]
-                if "on" in buff_data:
-                    on_data_key = buff_data["on"].keys()
-                    self.name = buff_data['name']
-                    # buff处理
-                    for i in on_data_key:
-                        if i in self.trigger_variables:
-                            setattr(self, i, buff_data["on"][i])
-            
+                data_key = buff_data.keys()
+                self.name = buff_data['name']
+                self.buff_id = number_
+                # buff处理
+                for i in data_key:
+                    if i in self.trigger_variables:
+                        setattr(self, i, buff_data[i])
+        
         except Exception as e:
             print(f"读取文件时发生错误: {e}")
 

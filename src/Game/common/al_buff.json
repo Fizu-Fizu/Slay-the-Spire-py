@@ -12,6 +12,7 @@
     "2": {
         "name": "力量",
         "on": {
+            "negative": true,
             "on_attack": true,
             "on_attack_effect": [
                 1,

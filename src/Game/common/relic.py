@@ -2,6 +2,9 @@ import json
 
 class Relic:
     """遗物类"""
+    # 遗物ID
+    relic_id: int
+    # 遗物名称
     name: str
     # 触发时机:
     # # 战斗开始
@@ -50,13 +53,13 @@ class Relic:
                 data = json.load(file)
             if number in data:
                 relic_data = data[number]
-                if "on" in relic_data:
-                    on_data_key = relic_data["on"].keys()
-                    self.name = relic_data['name']
-                    # 遗物处理
-                    for i in on_data_key:
-                        if i in self.trigger_variables:
-                            setattr(self, i, relic_data["on"][i])
+                data_key = relic_data.keys()
+                self.name = relic_data['name']
+                self.relic_id = number_
+                # 遗物处理
+                for i in data_key:
+                    if i in self.trigger_variables:
+                        setattr(self, i, relic_data[i])
             
         except Exception as e:
             print(f"读取文件时发生错误: {e}")
