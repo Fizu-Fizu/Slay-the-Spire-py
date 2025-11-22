@@ -32,7 +32,7 @@ class Map:
                     map_all.insert(0, [Node(random.choice([3, 5]), i)])
                     continue
                 # 节点类型,0-6 对应图标["💀","💰","🔥","👻","😈","💎","❓"]
-                _Probability = [1,2,3,4,5,6]
+                _Probability = [1,2,3,4,4,5,6]
                 # 创建节点组
                 temp_node = []
                 for _ in range(now_width):
@@ -68,7 +68,18 @@ class Map:
     # 位面++
     def plane_add(self):
         self.now_plane += 1
-        self.map_all = self.map_create(self.map_length)
+        if self.now_plane < 4:
+            self.map_all = self.map_create(self.map_length)
+        elif self.now_plane == 4:
+            self.map_length = 4
+            self.map_all.insert(0, [Node(0, 0)])# 💀
+            self.map_all.insert(0, [Node(4, 1)])# 😈
+            self.map_all.insert(0, [Node(1, 2)])# 💰
+            self.map_all.insert(0, [Node(2, 3)])# 🔥
+        else:
+            self.map_length = 1
+            self.map_all.insert(0, [Node(6, 0)])
+
 
     # 输出地图
     def print_map(self):
@@ -78,3 +89,7 @@ class Map:
                 msg += j.get_icon()
                 msg += " "
             print(msg + "]")
+
+    def select_node(self):
+        inp = int(input("请选择一个节点:")) - 1
+        return self.map_all[inp]

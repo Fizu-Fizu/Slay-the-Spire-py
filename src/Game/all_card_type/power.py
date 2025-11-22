@@ -1,4 +1,4 @@
 from .card import Card
 
 class Power(Card):
-    0
+    can_play: bool = False

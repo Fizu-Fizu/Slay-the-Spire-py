@@ -1,3 +1,5 @@
+from .node_type import NodeType
+
 class Node:
     # 节点类型,0-6 对应图标["💀","💰","🔥","👻","😈","💎","❓"]
     type: int
@@ -13,4 +15,7 @@ class Node:
 
     def get_icon(self) -> str:
         return self.icon[self.type]
-    
+
+    def enter_node(self):
+        if self.type == 0:
+            1

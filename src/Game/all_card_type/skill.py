@@ -1,4 +1,4 @@
 from .card import Card
 
 class Skill(Card):
-    0
+    delete = True
