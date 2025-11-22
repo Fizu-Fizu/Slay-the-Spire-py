@@ -1,10 +1,12 @@
-import random
-
-
+# 卡牌
 class Card:
+    # 消耗的能量，如果是X，此值为None
     spend_energy: int
+    # 类型: 1 攻击， 2 技能， 3  能力， 4 状态/诅咒
     type: int
+    # 是否消耗
     delete: bool = False
+    # 是否可打出
     can_play: bool = True
 
     # 初始化
@@ -12,16 +14,6 @@ class Card:
         self.spend_energy = spend_energy
         self.type = type
         self.delete = delete
-
-    # 抽牌
-    def draw(self, all_card:list['Card'], hand_pile: list['Card'], num: int):
-        for i in range(num):
-            if len(all_card) > 0:
-                hand_pile.append(random.choice(all_card))
-                all_card.remove(hand_pile[-1])
-            else:
-                return num - i
-        return 0
     
     # 弃牌
     def discard(self, hand_pile: list['Card'], discard_pile: list['Card']):

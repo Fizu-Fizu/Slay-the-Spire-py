@@ -17,5 +17,25 @@ class Node:
         return self.icon[self.type]
 
     def enter_node(self):
+        # boss节点
         if self.type == 0:
             1
+        # 商店节点
+        elif self.type == 1:
+            1
+        # 休整节点
+        elif self.type == 2:
+            1
+        # 小怪节点
+        elif self.type == 3:
+            1
+        # 精英节点
+        elif self.type == 4:
+            1
+        # 宝箱节点
+        elif self.type == 5:
+            1
+        # 未知节点
+        elif self.type == 6:
+            1
+        

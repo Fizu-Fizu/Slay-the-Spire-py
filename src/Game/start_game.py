@@ -1,28 +1,41 @@
 from .map import Map
 from .map import Node
 from .map import Buff
+from .map import Relic
 from .all_card_type import *
 
 class Game:
     """游戏类"""
     name: str
+    # 生命值
     max_HP: int
     HP: int
+    # 护甲
     block: int
+    # 金币
     gold: int
-    relic: list
+    # 遗物
+    relic: list[Relic]
+    # 节点
     now_node: Node
+    #  buff
     buff: list[Buff]
+    # 卡牌
     card: list[Card]
+    # 地图
     map: Map
+    # 卡牌背包
+    all_card: list[Card]
+    # 能量最大值&当前能量
+    max_energy: int = 3
 
-    def __init__(self, name: str, max_HP: int, HP: int, gold: int, relic: list[int] = []):
+    def __init__(self, name: str, max_HP: int, gold: int, relic: list[int] = []):
         """创建游戏"""
         self.name = name
         self.max_HP = max_HP
-        self.HP = HP
+        self.HP = max_HP
         self.gold = gold
-        self.relic = relic
+        self.relic = [Relic(i) for i in relic]
         self.map = Map()
         self.now_node = self.map.map_all[0][0]
     
@@ -34,13 +47,16 @@ class Game:
 class Object:
     """游戏对象类"""
     name: str
+    # 生命值
     max_HP: int
+    # 当前生命值
     HP: int
+    # 格挡
     block: int
+    # BUFF
     buff: list[Buff]
-    skill: list[list[int, list]]
 
-def new_game(name: str, max_HP: int, HP: int, gold: int, relic: list[int] = []) -> Game:
+def new_game(name: str, max_HP: int, gold: int = 0, relic: list[int] = []) -> Game:
     """创建游戏"""
-    GAME = Game(name, max_HP, HP, gold, relic)
+    GAME = Game(name, max_HP, gold, relic)
     return GAME

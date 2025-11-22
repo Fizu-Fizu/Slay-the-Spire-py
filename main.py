@@ -11,7 +11,7 @@ CHARACTER = [{
     "Max HP": 70,
     "HP": 70,
     "gold": 99,
-    "Relic": [1],
+    "Relic": [2],
 }]
 
 def main():
@@ -20,7 +20,16 @@ def main():
     print("选择角色：\n")
     for i in range(len(CHARACTER)):
         print(f"{i + 1}. {CHARACTER[i]['name']}")
-    input_num = int(input("")) - 1
+    input_num = -1
+    while True:
+        try:
+            input_num = int(input("")) - 1
+            if input_num >= 0 and input_num < len(CHARACTER):
+                break
+            else:
+                print("请输入正确的数字！")
+        except ValueError:
+            print("请输入数字！")
     os.system("cls")
     game_end = False
     GAME = new_game(

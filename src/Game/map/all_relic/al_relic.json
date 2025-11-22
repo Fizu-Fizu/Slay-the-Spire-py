@@ -1,0 +1,12 @@
+{
+    "2": {
+        "name": "蛇之戒指",
+        "on": {
+            "on_battle_start": true,
+            "on_battle_start_effect": [
+                1,
+                2
+            ]
+        }
+    }
+}
