@@ -43,7 +43,7 @@ class Relic:
 ]
     def __init__(self, number_: int):
         number = str(number_)
-        file_path = f'al_relic.json'
+        file_path = f'src/Game/common/al_relic.json'
         try:
             with open(file_path, 'r', encoding='utf-8') as file:
                 data = json.load(file)

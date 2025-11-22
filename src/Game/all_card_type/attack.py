@@ -1,5 +1,5 @@
 from .card import Card
-from ..map import Buff
+from ..common import Buff
 
 # 攻击牌
 class Attack(Card):

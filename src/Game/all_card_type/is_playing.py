@@ -1,6 +1,6 @@
 from ..all_card_type import Card
-from ..start_game import Game, Object
-from ..map import Player, trigger_attack, trigger_attacked
+from ..start_game import Game
+from ..common import trigger_attack, trigger_attacked
 import random
 
 # 使用卡牌
@@ -19,7 +19,9 @@ def use(self, hand_pile: list[Card], discard_pile: list[Card], exhaust_pile: lis
     return False
 
 # 触发效果-模版
-def trigger(self, player: 'Player', enemy: 'Object'):
+def trigger(self, player, enemy):
+    from ..common import Player
+    from ..object import Object
     # 类型: 1 攻击， 2 技能， 3  能力， 4 状态/诅咒
     # 触发攻击牌
     if self.type == 1:

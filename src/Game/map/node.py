@@ -1,5 +1,3 @@
-from .node_type import NodeType
-
 class Node:
     # 节点类型,0-6 对应图标["💀","💰","🔥","👻","😈","💎","❓"]
     type: int

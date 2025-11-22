@@ -9,7 +9,6 @@ from src.Game.start_game import new_game
 CHARACTER = [{
     "name": "The Silent",
     "Max HP": 70,
-    "HP": 70,
     "gold": 99,
     "Relic": [2],
 }]
@@ -35,7 +34,6 @@ def main():
     GAME = new_game(
         CHARACTER[input_num]["name"],
         CHARACTER[input_num]["Max HP"],
-        CHARACTER[input_num]["HP"],
         CHARACTER[input_num]["gold"],
         CHARACTER[input_num]["Relic"]
         )
