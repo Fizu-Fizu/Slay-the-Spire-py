@@ -1,1 +1,32 @@
-{}
+{
+    "1": {
+        "name": "易伤",
+        "on": {
+            "on_attacked": true,
+            "on_attacked_effect": [
+                2,
+                0.5
+            ]
+        }
+    },
+    "2": {
+        "name": "力量",
+        "on": {
+            "on_attack": true,
+            "on_attack_effect": [
+                1,
+                null
+            ]
+        }
+    },
+    "3": {
+        "name": "虚弱",
+        "on": {
+            "on_attack": true,
+            "on_attack_effect": [
+                2,
+                -0.25
+            ]
+        }
+    }
+}

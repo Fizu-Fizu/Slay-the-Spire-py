@@ -8,7 +8,7 @@ class Map:
     # 地图长度
     map_length: int = 15
     # 当前位面
-    now_plane: int = 1
+    now_plane: int = 0
     # 宽度概率
     Probability = [1,1,2,2,2,3,3,3,4,4,4]
     # 创建地图
@@ -63,7 +63,7 @@ class Map:
 
     # 创建地图类
     def __init__(self):
-        self.map_all = self.map_create(self.map_length)
+        self.map_all.insert(0, [Node(6, 0)])
 
     # 位面++
     def plane_add(self):
@@ -72,12 +72,14 @@ class Map:
             self.map_all = self.map_create(self.map_length)
         elif self.now_plane == 4:
             self.map_length = 4
+            self.map_all = []
             self.map_all.insert(0, [Node(0, 0)])# 💀
             self.map_all.insert(0, [Node(4, 1)])# 😈
             self.map_all.insert(0, [Node(1, 2)])# 💰
             self.map_all.insert(0, [Node(2, 3)])# 🔥
         else:
             self.map_length = 1
+            self.map_all = []
             self.map_all.insert(0, [Node(6, 0)])
 
 
@@ -90,6 +92,7 @@ class Map:
                 msg += " "
             print(msg + "]")
 
+    # 获取玩家选择节点 
     def select_node(self):
         inp = int(input("请选择一个节点:")) - 1
         return self.map_all[inp]

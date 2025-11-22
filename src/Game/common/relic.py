@@ -7,7 +7,7 @@ class Relic:
     # # 战斗开始
     on_battle_start: bool = False
     # 规则：[触发效果, 触发次数]触发效果: 1: 摸牌，
-    on_battle_start_effect: list[int] = []
+    on_battle_start_effect: list[int] = [0, 0]
     # 战斗结束
     on_battle_end: bool = False
     # 战斗中:
@@ -28,6 +28,7 @@ class Relic:
     on_attacked: bool = False 
     # 死亡？# 死亡触发
     on_death: bool = False
+    # 键名
     trigger_variables = [
     "on_battle_start",
     "on_battle_end",
@@ -60,5 +61,12 @@ class Relic:
         except Exception as e:
             print(f"读取文件时发生错误: {e}")
 
-    def trigger(self) -> int:
-        return 1
+
+    from .battle_time import Room
+    def trigger_battle_start(self, room: 'Room') -> int:
+        from ..all_card_type import draw, Card
+        from .battle_time import Room
+        # 触发效果
+        if self.on_battle_start:
+            if self.on_battle_start_effect[0] == 1:
+                draw(room, self.on_battle_start_effect[1])

@@ -38,12 +38,22 @@ def trigger(self, player, enemy):
                 buffs_on_attack = [buff for buff in enemy_.buff if buff.on_attacked == True]
                 temp_damage = trigger_attacked(buffs_on_attack, damage)
 
+from ..common import Room
+# 洗牌
+def shuffle(room: Room):
+    if Room.player.draw_pile == []:
+        Room.player.draw_pile = Room.player.discard_pile
+        Room.player.discard_pile = []
+
 # 抽牌
-def draw(all_card:list[Card], hand_pile: list[Card], num: int):
-    for i in range(num):
-        if len(all_card) > 0:
-            hand_pile.append(random.choice(all_card))
-            all_card.remove(hand_pile[-1])
+def draw(room: Room, num: int):
+    while num > 0:
+        if len(room.player.draw_pile) > 0:
+            room.player.hand_pile.append(random.choice(room.player.draw_pile))
+            room.player.draw_pile.remove(room.player.hand_pile[-1])
+            num -= 1
+        elif room.player.discard_pile != []:
+            shuffle(room)
         else:
-            return num - i
-    return 0
+            return False
+    return True

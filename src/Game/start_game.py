@@ -1,7 +1,7 @@
 from .map import Map
 from .map import Node
 from .common import Buff, Relic
-from .all_card_type import *
+from .all_card_type import Card
 from .object import Object
 
 class Game:
