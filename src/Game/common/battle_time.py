@@ -17,12 +17,12 @@ def battleing(game: Game, enemy_: list[Object]):
     battle_start_relics = [i for i in Battle.player.relic if i.on_battle_start]
     # 触发效果
     for relic in battle_start_relics:
-        relic.trigger(Battle)
+        relic.trigger(Battle, "on_battle_start")
     # 战斗
-    while Battle.player.HP > 0 and Battle.enemy.all_object != []:
+    while Battle.player.HP > 0 and Battle.enemy != []:
         print("开始战斗,你的回合")
         draw(Battle.player.draw_pile, Battle.player.hand_pile, 5)
         # 触发回合开始遗物
         turn_start_relics = [i for i in Battle.player.relic if i.on_turn_start]
         for relic in turn_start_relics:
-            relic.trigger(Battle)
+            relic.trigger(Battle, "on_turn_start")

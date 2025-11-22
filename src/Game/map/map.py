@@ -95,4 +95,4 @@ class Map:
     # 获取玩家选择节点 
     def select_node(self):
         inp = int(input("请选择一个节点:")) - 1
-        return self.map_all[inp]
+        return [self.map_all[inp], self.now_plane]

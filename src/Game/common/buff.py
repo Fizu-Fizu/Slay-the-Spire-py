@@ -88,24 +88,24 @@ class Buff:
 #    return damage
 
 # 攻击触发
-def trigger_damage(buffs: list[Buff], base_damage: int, effect_type: str) -> int:
+def trigger_damage(buffs: list[Buff], base_damage: int, trigger_type: str) -> int:
     # 攻击效果
     damage = base_damage
     # 攻击效果分类类型
-    effect_attr = "on_" + effect_type + "_effect"
+    effect_type = "on_" + trigger_type + "_effect"
     attar_type_1_buffs = [
         buff for buff in buffs
-        if getattr(buff, effect_attr)[0] == 1
+        if getattr(buff, effect_type)[0] == 1
     ]
     attar_type_2_buffs = [
         buff for buff in buffs
-        if getattr(buff, effect_attr)[0] == 2
+        if getattr(buff, effect_type)[0] == 2
     ]
     # 攻击效果
     for buff_ in attar_type_1_buffs:
-        damage += getattr(buff_, effect_attr)[1]
+        damage += getattr(buff_, effect_type)[1]
     for buff_ in attar_type_2_buffs:
-        damage *= 1 + getattr(buff_, effect_attr)[1]
+        damage *= 1 + getattr(buff_, effect_type)[1]
         damage = math.floor(damage)
     # 触发效果
     return damage
