@@ -6,6 +6,8 @@ class Card:
     card_id: int
     # 名字
     name: str
+    # 描述
+    description: str
     # 消耗的能量，如果是X，此值为None
     spend_energy: int
     # 类型: 1 攻击， 2 技能， 3  能力， 4 状态/诅咒
@@ -14,6 +16,15 @@ class Card:
     delete: bool = False
     # 是否可打出
     can_play: bool = True
+    # 是否有特殊效果
+    t_effect: bool = False
+    # 特殊效果数据
+    # 1 重复卡牌
+    # # 额外判定数据: [
+    # #     int = 1:buff[1: buff ID, 2: buff count]
+    # #     
+    # # ]
+    t_effect_data: list = []
     # 效果
     effect_data: dict = {}
     # 攻击效果{
@@ -41,7 +52,7 @@ class Card:
     #    # 是否有BUFF
     #    "is_buff": False,
     #     # 增益/减益
-    #    "buff": [num, [int: ID, int: count],...],
+    #    "buff": [num, [int: ID, int: count, me?],...],
     #    }
 
     trigger_variables = [

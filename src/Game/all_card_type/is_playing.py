@@ -31,7 +31,7 @@ def use(card: Card, room: Room):
     return False
 
 # 触发效果-模版
-def trigger(card: Card, room: Room):
+def trigger(card: Card, room: Room, object_: int):
     # 类型: 1 攻击， 2 技能， 3  能力， 4 状态/诅咒
     # 触发攻击牌
     if card.type == 1:
@@ -56,6 +56,8 @@ def trigger(card: Card, room: Room):
                         buff.trigger(room, "on_death")
                     if enemy_.HP <= 0:
                         room.enemy.remove(enemy_)
+        else:
+            enemy_ = room.enemy[object_]
     elif card.type == 2:
         1
     if card.effect_data["is_block"]:
@@ -65,6 +67,13 @@ def trigger(card: Card, room: Room):
         room.player.block += block_num
         room.player.block = max(0, room.player.block)
         del(buffs_on_block)
+    if card.t_effect:
+        if card.t_effect_data[0] == 1:
+            temp_card = card
+            temp_card.t_effect = False
+            trigger(temp_card, room)
+
+
 
 
 # 洗牌

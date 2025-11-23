@@ -24,6 +24,35 @@
             -0.25
         ]
     },
+    "4": {
+        "name": "敏捷",
+        "negative": true,
+        "on_block": true,
+        "on_block_effect": [
+            1,
+            null
+        ]
+    },
+    "5": {
+        "name": "能量提升",
+        "is_drop_buff_count": true,
+        "drop_buff_count": null,
+        "on_turn_start": true,
+        "on_turn_start_effect": [
+            3,
+            null
+        ]
+    },
+    "6": {
+        "name": "中毒",
+        "is_drop_buff_count": true,
+        "drop_buff_count": 1,
+        "on_turn_end": true,
+        "on_turn_end_effect": [
+            1,
+            -1
+        ]
+    },
     "1001": {
         "name": "仪式",
         "on_turn_end": true,

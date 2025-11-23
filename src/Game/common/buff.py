@@ -8,7 +8,9 @@ class Buff:
     # buff计数
     buff_count: int = 0
     # 每回合是否掉buff_count
-    drop_buff_count: bool = False
+    is_drop_buff_count: bool = False
+    # 掉多少
+    drop_buff_count: int = 0
     # 是否会变成负数
     negative: bool = False
     # 触发
@@ -66,6 +68,7 @@ class Buff:
     # effect：
     # 1. 增减血量 :: [效果类型, 1、增减伤害数值;2、百分比增减, 触发效果参数]
     # 2. 增减格挡 :: [效果类型, 1、增减数值;2、百分比增减, 触发效果参数]
+    # 3. 增减能量 :: [效果类型, 增加的数值]
     # 5. 增减buff :: [效果类型, buffID, 增减的数值: None代表当前buff数值, 是否我方, 是否对群]
     # 99.触发多次 :: [99, [效果类型, 触发效果参数], ...]
 
@@ -105,6 +108,8 @@ class Buff:
             if getattr(self, effect_type) == 1:
                 1
             elif getattr(self, effect_type) == 2:
+                1
+            elif getattr(self, effect_type) == 3:
                 1
             elif getattr(self, effect_type) == 5:
                 buff_data = getattr(self, effect_type)
