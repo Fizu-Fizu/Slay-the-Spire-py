@@ -41,7 +41,14 @@ class Game:
     
     def prt_Game(self):
         """输出信息"""
-        msg = "HP:" + str(self.HP) + "/" + str(self.max_HP) + "  " + "护盾:" + str(self.block)
+        msg = "玩家信息: \n"
+        if self.block > 0:
+            msg = f"\033[36m格挡:{self.block}\033[0m "
+        msg += (
+                f"\033[31mHP:{self.HP}/{self.max_HP}\033[0m " +
+                f""
+            )
+        print(msg)
 
 def new_game(name: str, max_HP: int, gold: int = 0, relic: list[int] = []) -> Game:
     """创建游戏"""

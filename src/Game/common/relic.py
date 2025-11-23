@@ -68,14 +68,22 @@ class Relic:
     "on_attacked",
     "on_death",
     "on_battle_start_effect",
-    "is_full",
+    "on_battle_end_effect",
+    "on_turn_start_effect",
+    "on_card_play_effect",
+    "on_turn_end_effect",
+    "on_attack_effect",
+    "on_block_effect",
+    "on_damage_taken_effect",
+    "on_attacked_effect",
+    "on_death_effect",
     "on_counter_full",
     "on_counter_full_count",
     "on_counter_full_effect"
 ]
     def __init__(self, number_: int):
         number = str(number_)
-        file_path = f'src/Game/common/al_relic.json'
+        file_path = r'src/Game/common/al_relic.json'
         try:
             with open(file_path, 'r', encoding='utf-8') as file:
                 data = json.load(file)

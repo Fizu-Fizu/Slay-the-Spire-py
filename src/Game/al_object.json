@@ -1,0 +1,43 @@
+{
+    "1": {
+        "name": "邪教徒",
+        "max_HP": [
+            46,
+            50
+        ],
+        "start_intent": [
+            1
+        ],
+        "intents": {
+            "1": {
+                "intent_type": 3,
+                "parameter": [
+                    1,
+                    [
+                        [
+                            1001,
+                            3
+                        ]
+                    ]
+                ],
+                "is_me": true,
+                "is_all": false,
+                "next_intent": [
+                    2
+                ]
+            },
+            "2": {
+                "intent_type": 1,
+                "parameter": [
+                    6,
+                    1
+                ],
+                "is_me": false,
+                "is_all": false,
+                "next_intent": [
+                    2
+                ]
+            }
+        }
+    }
+}

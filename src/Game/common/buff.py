@@ -3,19 +3,27 @@ import math
 class Buff:
     # buffID
     buff_id: int
-    # 持续回合
-    duration: int = 0
-    # 每回合是否掉duration
-    drop_duration: bool = False
+    # buff当前对象
+    object_: list = [True, 0] # [bool: 是否为Player, object_id:]
+    # buff计数
+    buff_count: int = 0
+    # 每回合是否掉buff_count
+    drop_buff_count: bool = False
     # 是否会变成负数
     negative: bool = False
     # 触发
+    # 无条件触发
+    NULL: bool = False
+    # 无条件触发效果
+    NULL_effect: list = [0]
     # 每一回合开始
     on_turn_start: bool = False
     # 牌使用
     on_card_play: bool = False
     # 每一回合结束
     on_turn_end: bool = False
+    # 每一回合结束效果
+    on_turn_end_effect: list = [0, 0]
     # 被伤害
     on_damage_taken: bool = False
     # 被攻击
@@ -28,8 +36,8 @@ class Buff:
     on_block: bool = False
     # 键名
     trigger_variables = [
-        "duration",
-        "drop_duration",
+        "buff_count",
+        "drop_buff_count",
         "negative",
         "on_turn_start",
         "on_card_play",
@@ -38,14 +46,20 @@ class Buff:
         "on_attacked",
         "on_attack",
         "on_block",
+        "on_turn_end_effect"
         "on_attacked_effect",
-        "on_attack_effect"
+        "on_attack_effect",
         ]
+    # effect：
+    # 1. 增减血量 :: [效果类型, 1、增减伤害数值;2、百分比增减, 触发效果参数]
+    # 2. 增减格挡 :: [效果类型, 1、增减数值;2、百分比增减, 触发效果参数]
+    # 5. 增减buff :: [效果类型, buffID, 增减的数值: None代表当前buff数值, 是否我方, 是否对群]
+    # 99.触发多次 :: [99, [效果类型, 触发效果参数], ...]
 
-    def __init__(self, number_: int):
+    def __init__(self, number_: int, object_: list, buff_count: int):
         import json
         number = str(number_)
-        file_path = f'src/Game/common/al_buff.json'
+        file_path = r'src/Game/common/al_buff.json'
         try:
             # 读取JSON文件
             with open(file_path, 'r', encoding='utf-8') as file:
@@ -63,6 +77,39 @@ class Buff:
         
         except Exception as e:
             print(f"读取文件时发生错误: {e}")
+
+    from .room import Room
+    # 非攻击触发
+    def trigger(self, room: 'Room', trigger_type: str):
+        from .battle_time import Room
+        from ..object import Object
+        from ..start_game import Game
+        effect_type = trigger_type + "_effect"
+        if getattr(self, trigger_type):
+            if getattr(self, effect_type) == 1:
+                1
+            elif getattr(self, effect_type) == 2:
+                1
+            elif getattr(self, effect_type) == 5:
+                buff_data = getattr(self, effect_type)
+                buff_id = buff_data[1]
+                buff_count_: int = getattr(self, effect_type)[2]
+                object_ = []
+                if buff_count_ == None:
+                    buff_count_ = self.buff_count
+                if buff_data[3]:
+                    object_[0] = self.object_[0]
+                else:
+                    object_[0] = not self.object_[0]
+                if not buff_data[4] or object_[0]:
+                    object_[1] = 0
+                    room.player.buff.append(Buff(buff_id, object_, buff_count_))
+                else:
+                    for enemy_ in room.enemy:
+                        object_[1] = enemy_.object_id
+                        enemy_.buff.append(Buff(buff_id, object_, buff_count_))
+
+
 
 ## 攻击时触发
 #def trigger_attack(buffs: list[Buff], base_damage: int) -> int:
@@ -109,3 +156,4 @@ def trigger_damage(buffs: list[Buff], base_damage: int, trigger_type: str) -> in
         damage = math.floor(damage)
     # 触发效果
     return damage
+

@@ -23,5 +23,16 @@
             2,
             -0.25
         ]
+    },
+    "1001": {
+        "name": "仪式",
+        "on_turn_end": true,
+        "on_turn_end_effect": [
+            5,
+            2,
+            null,
+            true,
+            false
+        ]
     }
 }

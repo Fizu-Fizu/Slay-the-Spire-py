@@ -19,3 +19,4 @@ def print_simple_tree(start_path='.'):
 
 # 运行
 print_simple_tree()
+#print("\033[1;31;43mhelloworld\033[0m")

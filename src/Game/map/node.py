@@ -37,7 +37,9 @@ def enter_node(now_node:list[Node, int]):
     # 未知节点
     elif self_.type == 6:
         if now_node[1] == 0:
-            1
+            run_dialogue(1)
 
-def run_dialogue():
-    1
+def run_dialogue(number_: int):
+    from .dialogue import Dialogue
+    now_dialogue = Dialogue(number_)
+    now_dialogue.run()
