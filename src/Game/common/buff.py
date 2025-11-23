@@ -14,18 +14,20 @@ class Buff:
     # 触发
     # 无条件触发
     NULL: bool = False
-    # 无条件触发效果
     NULL_effect: list = [0]
     # 每一回合开始
     on_turn_start: bool = False
+    on_turn_start_effect: list = [0, 0]
     # 牌使用
     on_card_play: bool = False
+    card_type: int = 0 # 牌类型
+    on_card_play_effect: list = [0] # 触发效果: [卡牌种类]
     # 每一回合结束
     on_turn_end: bool = False
-    # 每一回合结束效果
     on_turn_end_effect: list = [0, 0]
     # 被伤害
     on_damage_taken: bool = False
+    on_damage_taken_effect: list = [0, 0]
     # 被攻击
     on_attacked: bool = False
     on_attacked_effect: list = [0, 0] # 触发效果: [效果类型: 1、增减伤害数值;2、百分比增减, 触发效果参数]
@@ -34,11 +36,16 @@ class Buff:
     on_attack_effect: list = [0, 0] # 触发效果: [效果类型：1、增减伤害数值;2、百分比增减, 触发效果参数]
     # 格挡时
     on_block: bool = False
+    on_block_effect: list = [0, 0]
+    # 死亡时
+    on_death: bool = False
+    on_death_effect: list = [0]
     # 键名
     trigger_variables = [
         "buff_count",
         "drop_buff_count",
         "negative",
+        "card_type",
         "on_turn_start",
         "on_card_play",
         "on_turn_end",
@@ -46,9 +53,15 @@ class Buff:
         "on_attacked",
         "on_attack",
         "on_block",
-        "on_turn_end_effect"
+        "on_death",
+        "on_turn_start_effect",
+        "on_card_play_effect",
+        "on_turn_end_effect",
+        "on_damage_take_effect",
         "on_attacked_effect",
         "on_attack_effect",
+        "on_block_effect",
+        "on_death_effect",
         ]
     # effect：
     # 1. 增减血量 :: [效果类型, 1、增减伤害数值;2、百分比增减, 触发效果参数]
@@ -85,6 +98,9 @@ class Buff:
         from ..object import Object
         from ..start_game import Game
         effect_type = trigger_type + "_effect"
+        # 如果是牌触发验证一下类型
+        if trigger_type == "on_card_play" and self.card_type != room.player.now_card.type:
+            return
         if getattr(self, trigger_type):
             if getattr(self, effect_type) == 1:
                 1
@@ -157,3 +173,20 @@ def trigger_damage(buffs: list[Buff], base_damage: int, trigger_type: str) -> in
     # 触发效果
     return damage
 
+def trigger_block(buffs: list[Buff], base_block: int) -> int:
+    block = base_block
+    block_effect_type_1_buffs = [
+        buff for buff in buffs
+        if buff.on_block_effect[0] == 1
+    ]
+    block_effect_type_2_buffs = [
+        buff for buff in buffs
+        if buff.on_block_effect[0] == 2
+    ]
+    for buff_ in block_effect_type_1_buffs:
+        block += buff_.on_block_effect[1]
+    for buff_ in block_effect_type_2_buffs:
+        block *= 1 + buff_.on_block_effect[1]
+        block = math.floor(block)
+
+    return block

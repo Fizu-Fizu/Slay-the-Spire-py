@@ -4,6 +4,9 @@ from ..start_game import Game
 
 # 玩家
 class Player(Game):
+    """玩家类"""
+    # 当前出牌
+    now_card: Card
     # 手牌
     hand_pile: list[Card]
     # 抽牌堆

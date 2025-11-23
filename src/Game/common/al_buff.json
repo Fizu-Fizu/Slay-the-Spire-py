@@ -34,5 +34,16 @@
             true,
             false
         ]
+    },
+    "1002": {
+        "name": "激怒",
+        "on_card_play": true,
+        "on_card_play_effect": [
+            5,
+            2,
+            1,
+            true,
+            false
+        ]
     }
 }
