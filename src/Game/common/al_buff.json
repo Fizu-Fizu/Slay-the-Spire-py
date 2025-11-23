@@ -1,4 +1,7 @@
 {
+    "0": {
+        "name": "无"
+    },
     "1": {
         "name": "易伤",
         "on_attacked": true,

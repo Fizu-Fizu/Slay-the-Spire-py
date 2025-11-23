@@ -66,8 +66,8 @@ class Buff:
         "on_death_effect",
         ]
     # effect：
-    # 1. 增减血量 :: [效果类型, 1、增减伤害数值;2、百分比增减, 触发效果参数]
-    # 2. 增减格挡 :: [效果类型, 1、增减数值;2、百分比增减, 触发效果参数]
+    # 1. 增减血量 :: [效果类型, 1、百分比增减, 触发效果参数;2、增减伤害数值]
+    # 2. 增减格挡 :: [效果类型, 1、百分比增减, 触发效果参数;2、增减数值]
     # 3. 增减能量 :: [效果类型, 增加的数值]
     # 5. 增减buff :: [效果类型, buffID, 增减的数值: None代表当前buff数值, 是否我方, 是否对群]
     # 99.触发多次 :: [99, [效果类型, 触发效果参数], ...]
@@ -105,12 +105,40 @@ class Buff:
         if trigger_type == "on_card_play" and self.card_type != room.player.now_card.type:
             return
         if getattr(self, trigger_type):
+            # 血量
             if getattr(self, effect_type) == 1:
-                1
+                if self.object_[0]:
+                    obj = room.player
+                else:
+                    obj = room.enemy[self.object_[1]]
+                # 触发效果
+                if getattr(self, effect_type)[1] == 1:
+                    obj.HP *= 1 + getattr(self, effect_type)[2]
+                    obj.HP = max(obj.HP, 1)
+                    obj.HP = min(obj.max_HP, obj.HP)
+                elif getattr(self, effect_type)[1] == 2:
+                    obj.HP += getattr(self, effect_type)[2]
+                    obj.HP = max(obj.HP, 1)
+                    obj.HP = min(obj.HP, obj.max_HP)
+            # 护盾
             elif getattr(self, effect_type) == 2:
-                1
+                if self.object_[0]:
+                    obj = room.player
+                else:
+                    obj = room.enemy[self.object_[1]]
+                # 触发效果
+                if getattr(self, effect_type)[1] == 1:
+                    obj.block *= 1 + getattr(self, effect_type)[2]
+                    obj.block = max(obj.block, 0)
+                    obj.block = min(obj.block, obj.max_block)
+                elif getattr(self, effect_type)[1] == 2:
+                    obj.block += getattr(self, effect_type)[2]
+                    obj.block = max(obj.block, 0)
+                    obj.block = min(obj.block, obj.max_block)
+            # 能量
             elif getattr(self, effect_type) == 3:
-                1
+                room.player.energy += getattr(self, effect_type)[1]
+            # buff
             elif getattr(self, effect_type) == 5:
                 buff_data = getattr(self, effect_type)
                 buff_id = buff_data[1]
