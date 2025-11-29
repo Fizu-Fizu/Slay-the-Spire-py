@@ -1,5 +1,5 @@
 import json
-from .common import Buff
+from ..common.buff import Buff
 from .intent import Intent
 
 class Object:
@@ -32,7 +32,7 @@ class Object:
     ]
 
     def __init__(self, object_id: int):
-        file_path = r'src\Game\al_object.json'
+        file_path = r'data\al_object.json'
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
                 data = json.load(f)

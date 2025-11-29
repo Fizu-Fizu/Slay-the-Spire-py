@@ -33,7 +33,7 @@ class Intent:
     def __init__(self,source_id: int, intent_id: int):
         self.source_id = source_id
         self.intent_id = intent_id
-        file_path = r"src\Game\al_object.json"
+        file_path = r"data\al_object.json"
         try: 
             with open(file_path, 'r', encoding='utf-8') as f: 
                 data = json.load(f)

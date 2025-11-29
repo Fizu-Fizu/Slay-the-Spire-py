@@ -1,7 +1,6 @@
-from ..all_card_type import Card
-from ..start_game import Game
-from ..common import trigger_damage, trigger_block
-from ..common import Room
+from ..cards.card import Card
+from ..common.buff import trigger_damage, trigger_block
+from ..map.room.room import Room
 import random
 
 # 使用卡牌

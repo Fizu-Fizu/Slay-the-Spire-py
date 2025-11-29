@@ -75,7 +75,7 @@ class Buff:
     def __init__(self, number_: int, object_: list, buff_count: int):
         import json
         number = str(number_)
-        file_path = r'src/Game/common/al_buff.json'
+        file_path = r'data\al_buff.json'
         try:
             # 读取JSON文件
             with open(file_path, 'r', encoding='utf-8') as file:
@@ -94,12 +94,12 @@ class Buff:
         except Exception as e:
             print(f"读取文件时发生错误: {e}")
 
-    from .room import Room
+    
     # 非攻击触发
-    def trigger(self, room: 'Room', trigger_type: str):
-        from .battle_time import Room
-        from ..object import Object
-        from ..start_game import Game
+    def trigger(self, room, trigger_type: str):
+        from ..map.room.room import Room
+        from ..core.object import Object
+        room: Room = room
         effect_type = trigger_type + "_effect"
         # 如果是牌触发验证一下类型
         if trigger_type == "on_card_play" and self.card_type != room.player.now_card.type:
@@ -130,11 +130,9 @@ class Buff:
                 if getattr(self, effect_type)[1] == 1:
                     obj.block *= 1 + getattr(self, effect_type)[2]
                     obj.block = max(obj.block, 0)
-                    obj.block = min(obj.block, obj.max_block)
                 elif getattr(self, effect_type)[1] == 2:
                     obj.block += getattr(self, effect_type)[2]
                     obj.block = max(obj.block, 0)
-                    obj.block = min(obj.block, obj.max_block)
             # 能量
             elif getattr(self, effect_type) == 3:
                 room.player.energy += getattr(self, effect_type)[1]

@@ -68,7 +68,7 @@ class Card:
     # 初始化
     def __init__(self, card_id: int):
         self.card_id = card_id
-        file_path = r"src\Game\all_card_type\al_card.json"
+        file_path = r"data\al_card.json"
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
                 data = json.load(f)

@@ -104,6 +104,7 @@ class Map:
             self.print_map()
 
 
+
     # 输出地图
     def print_map(self):
         for i in reversed(self.map_all):

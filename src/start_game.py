@@ -1,8 +1,8 @@
-from .map import Map
-from .map import Node
-from .common import Buff, Relic
-from .all_card_type import Card
-from .object import Object
+from  .game.map.map import Map
+from .game.map.node import Node
+from .game.common.buff import Buff
+from .game.common.relic import Relic
+from .game.cards.card import Card
 
 class Game:
     """游戏类"""

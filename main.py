@@ -3,7 +3,7 @@ import sys
 import os
 
 # 导入自定义模块
-from src.Game.start_game import new_game
+from src.start_game import new_game
 
 # 常量定义
 CHARACTER = [{
@@ -45,7 +45,6 @@ def main():
         elif inp == "2":
             os.system("cls")
             GAME.map.plane_add()
-            GAME.map.print_map()
         elif inp == "0":
             os.system("cls")
             game_end = True

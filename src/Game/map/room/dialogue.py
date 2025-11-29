@@ -16,7 +16,7 @@ class Dialogue:
     dialogue_type: int = 0
 
     def __init__(self, dialogue_id: int):
-        file_path = r'src\Game\map\al_dialogue.json'
+        file_path = r'data\al_dialogue.json'
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
                 data = json.load(f)
@@ -27,7 +27,7 @@ class Dialogue:
         except Exception as e:
             print(f"读取文件时发生错误: {e}")
 
-    from ..common import Room
+    from ...common import Room
 
     # 触发效果
     def trigger(self, list_ : list, room: 'Room'):
@@ -41,7 +41,7 @@ class Dialogue:
             room.player.HP = min(room.player.HP, room.player.max_HP)
             room.player.HP = max(room.player.HP, 1)
         elif list_[0] == 3:
-            from ..common import Relic
+            from ...common import Relic
             room.player.relic.append(Relic(list_[1]))
 
     # 运行对话

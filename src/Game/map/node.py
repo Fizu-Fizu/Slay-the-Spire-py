@@ -40,6 +40,6 @@ def enter_node(now_node:list[Node, int]):
             run_dialogue(1)
 
 def run_dialogue(number_: int):
-    from .dialogue import Dialogue
+    from .room.dialogue import Dialogue
     now_dialogue = Dialogue(number_)
     now_dialogue.run()

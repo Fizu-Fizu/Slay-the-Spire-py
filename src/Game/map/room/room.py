@@ -1,6 +1,6 @@
-from ..all_card_type import Card
-from ..object import Object
-from ..start_game import Game
+from ...cards.card import Card
+from ...core.object import Object
+from ....start_game import Game
 
 # 玩家
 class Player(Game):

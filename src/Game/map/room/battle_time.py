@@ -1,10 +1,10 @@
-from ..start_game import Game
+from ....start_game import Game
 from .room import Room, Player
-from ..object import Object
+from ...core.object import Object
 
 # 引入遗物
-from .relic import Relic
-from ..all_card_type import draw
+from ...common.relic import Relic
+from ...cards import draw
 
 # 开始战斗
 def battleing(game: Game, enemy_: list[Object]):

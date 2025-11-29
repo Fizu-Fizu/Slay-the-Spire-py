@@ -83,7 +83,7 @@ class Relic:
 ]
     def __init__(self, number_: int):
         number = str(number_)
-        file_path = r'src/Game/common/al_relic.json'
+        file_path = r'data\al_relic.json'
         try:
             with open(file_path, 'r', encoding='utf-8') as file:
                 data = json.load(file)
@@ -103,10 +103,11 @@ class Relic:
             print(f"读取文件时发生错误: {e}")
 
 
-    from .battle_time import Room
-    def trigger(self, room: 'Room', trigger_type: str) -> int:
-        from ..all_card_type import draw, Card
-        from .battle_time import Room
+    def trigger(self, room, trigger_type: str) -> int:
+        from ..cards.card import Card
+        from ..cards.is_playing import draw
+        from ..map.room.battle_time import Room
+        room: Room = room
         effect_type = trigger_type + "_effect"
         # 触发效果
         if getattr(self, trigger_type):
