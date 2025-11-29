@@ -40,6 +40,79 @@
             }
         }
     },
+    "2": {
+        "name": "尖刺史莱姆（小）",
+        "max_HP": [
+            10,
+            14
+        ],
+        "start_intent": [
+            1
+        ],
+        "intents": {
+            "1": {
+                "intent_type": 1,
+                "parameter": [
+                    5,
+                    1
+                ],
+                "is_me": false,
+                "is_all": false,
+                "next_intent": [
+                    1
+                ]
+            }
+        }
+    },
+    "3": {
+        "name": "酸液史莱姆（小）",
+        "max_HP": [
+            8,
+            12
+        ],
+        "start_intent": [
+            0,
+            [
+                1,
+                2
+            ],
+            [
+                1,
+                1
+            ]
+        ],
+        "intents": {
+            "1": {
+                "intent_type": 1,
+                "parameter": [
+                    3,
+                    1
+                ],
+                "is_me": false,
+                "is_all": false,
+                "next_intent": [
+                    2
+                ]
+            },
+            "2": {
+                "intent_type": 3,
+                "parameter": [
+                    1,
+                    [
+                        [
+                            3,
+                            1
+                        ]
+                    ]
+                ],
+                "is_me": false,
+                "is_all": false,
+                "next_intent": [
+                    1
+                ]
+            }
+        }
+    },
     "1001": {
         "name": "地精大块头",
         "max_HP": [

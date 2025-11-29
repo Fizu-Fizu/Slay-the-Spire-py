@@ -19,6 +19,7 @@ class Relic:
     #   # 3：增减敌方血量
     #   # 4: 计数器触发 ::
     #   # 5: 更改某个值 ::
+    #   # 6: 增减buff  :: buffID, 层数, 是否对自己
     #   # 99: 触发多次
     # # 战斗开始
     on_battle_start: bool = False
@@ -105,6 +106,7 @@ class Relic:
 
     def trigger(self, room, trigger_type: str) -> int:
         from ..cards.card import Card
+        from .buff import Buff
         from ..cards.is_playing import draw
         from ..map.room.battle_time import Room
         room: Room = room
@@ -126,7 +128,7 @@ class Relic:
                     room.player.HP = min(room.player.HP, room.player.max_HP)
             # 效果3: 增减敌方生命
             elif getattr(self, effect_type)[0] == 3:
-                for enemy_ in Room.enemy:
+                for enemy_ in room.enemy:
                     if getattr(self, effect_type)[1] == 1:
                         enemy_.HP *= 1 + getattr(self, effect_type)[2]
                         enemy_.HP = max(enemy_.HP, 1)
@@ -146,6 +148,20 @@ class Relic:
                 key_data = getattr(self, effect_type)[1].keys()
                 for key in key_data:
                     setattr(self, key, getattr(self, effect_type)[1][key])
+            # 效果6: 添加buff
+            elif getattr(self, effect_type)[0] == 6:
+                new_buff = Buff(getattr(self, effect_type)[1], getattr(self, effect_type)[2])
+                if getattr(self, effect_type)[3] == True:
+                    if new_buff.is_in_buff(room.player.buff):
+                        new_buff.buffs_add_buff(room.player.buff)
+                    else:
+                        room.player.buff.append(new_buff)
+                else:
+                    for enemy_ in room.enemy:
+                        if new_buff.is_in_buff(enemy_.buff):
+                            new_buff.buffs_add_buff(enemy_.buff)
+                        else:
+                            enemy_.buff.append(new_buff)
             # 触发多种效果
             elif getattr(self, effect_type)[0] == 99:
                 for trigger_temp in getattr(self, effect_type)[1]:

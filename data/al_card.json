@@ -1,7 +1,8 @@
 {
     "2001": {
+        "rarity": 1,
         "name": "打击",
-        "description": "造成6点伤害",
+        "description": "造成6点伤害。",
         "spend_energy": 1,
         "type": 1,
         "delete": false,
@@ -17,7 +18,27 @@
             ]
         }
     },
+    "20010": {
+        "rarity": 1,
+        "name": "打击+",
+        "description": "造成9点伤害。",
+        "spend_energy": 1,
+        "type": 1,
+        "delete": false,
+        "can_play": true,
+        "effect_data": {
+            "is_aoe": false,
+            "damage": 9,
+            "trigger_count": 1,
+            "is_block": false,
+            "is_buff": false,
+            "buff": [
+                0
+            ]
+        }
+    },
     "2002": {
+        "rarity": 1,
         "name": "中和",
         "description": "造成3点伤害, 给予1层虚弱。",
         "spend_energy": 0,
@@ -40,7 +61,32 @@
             ]
         }
     },
+    "20020": {
+        "rarity": 1,
+        "name": "中和+",
+        "description": "造成4点伤害, 给予2层虚弱。",
+        "spend_energy": 0,
+        "type": 1,
+        "delete": false,
+        "can_play": true,
+        "effect_data": {
+            "is_aoe": false,
+            "damage": 4,
+            "trigger_count": 1,
+            "is_block": false,
+            "is_buff": true,
+            "buff": [
+                1,
+                [
+                    3,
+                    2,
+                    false
+                ]
+            ]
+        }
+    },
     "2003": {
+        "rarity": 1,
         "name": "飞膝",
         "description": "造成8点伤害, 在下一回合获得能量*1。",
         "spend_energy": 1,
@@ -63,7 +109,32 @@
             ]
         }
     },
+    "20030": {
+        "rarity": 1,
+        "name": "飞膝+",
+        "description": "造成11点伤害, 在下一回合获得能量*1。",
+        "spend_energy": 1,
+        "type": 1,
+        "delete": false,
+        "can_play": true,
+        "effect_data": {
+            "is_aoe": false,
+            "damage": 11,
+            "trigger_count": 1,
+            "is_block": false,
+            "is_buff": true,
+            "buff": [
+                1,
+                [
+                    5,
+                    1,
+                    true
+                ]
+            ]
+        }
+    },
     "2004": {
+        "rarity": 1,
         "name": "灾祸",
         "description": "造成7点伤害, 如果敌人有中毒状态, 则再次造成7点伤害。",
         "spend_energy": 1,
@@ -80,7 +151,7 @@
         ],
         "effect_data": {
             "is_aoe": false,
-            "damage": 8,
+            "damage": 7,
             "trigger_count": 1,
             "is_block": false,
             "is_buff": true,
@@ -97,9 +168,45 @@
             ]
         }
     },
-    "2202": {
+    "20040": {
+        "rarity": 1,
+        "name": "灾祸+",
+        "description": "造成10点伤害, 如果敌人有中毒状态, 则再次造成10点伤害。",
+        "spend_energy": 1,
+        "type": 1,
+        "delete": false,
+        "can_play": true,
+        "t_effect": true,
+        "t_effect_data": [
+            1,
+            [
+                6,
+                0
+            ]
+        ],
+        "effect_data": {
+            "is_aoe": false,
+            "damage": 10,
+            "trigger_count": 1,
+            "is_block": false,
+            "is_buff": true,
+            "buff": [
+                1,
+                [
+                    1,
+                    [
+                        5,
+                        1,
+                        true
+                    ]
+                ]
+            ]
+        }
+    },
+    "2301": {
+        "rarity": 1,
         "name": "防御",
-        "description": "获得5点格挡",
+        "description": "获得5点格挡。",
         "spend_energy": 1,
         "type": 2,
         "delete": false,
@@ -110,6 +217,63 @@
             "is_buff": false,
             "buff": [
                 0
+            ]
+        }
+    },
+    "23010": {
+        "rarity": 1,
+        "name": "防御+",
+        "description": "获得8点格挡。",
+        "spend_energy": 1,
+        "type": 2,
+        "delete": false,
+        "can_play": true,
+        "effect_data": {
+            "is_block": true,
+            "block": 8,
+            "is_buff": false,
+            "buff": [
+                0
+            ]
+        }
+    },
+    "2601": {
+        "rarity": 2,
+        "name": "灵动步法",
+        "description": "获得2点敏捷。",
+        "spend_energy": 1,
+        "type": 3,
+        "delete": true,
+        "can_play": true,
+        "effect_data": {
+            "is_buff": true,
+            "buff": [
+                1,
+                [
+                    4,
+                    2,
+                    true
+                ]
+            ]
+        }
+    },
+    "26010": {
+        "rarity": 2,
+        "name": "灵动步法+",
+        "description": "获得3点敏捷。",
+        "spend_energy": 1,
+        "type": 3,
+        "delete": true,
+        "can_play": true,
+        "effect_data": {
+            "is_buff": true,
+            "buff": [
+                1,
+                [
+                    4,
+                    3,
+                    true
+                ]
             ]
         }
     }

@@ -4,6 +4,8 @@
     },
     "1": {
         "name": "易伤",
+        "is_drop_buff_count": true,
+        "drop_buff_count": 1,
         "on_attacked": true,
         "on_attacked_effect": [
             2,
@@ -21,6 +23,8 @@
     },
     "3": {
         "name": "虚弱",
+        "is_drop_buff_count": true,
+        "drop_buff_count": 1,
         "on_attack": true,
         "on_attack_effect": [
             2,
@@ -52,7 +56,21 @@
         "drop_buff_count": 1,
         "on_turn_end": true,
         "on_turn_end_effect": [
+            true,
             1,
+            null,
+            -1
+        ]
+    },
+    "7": {
+        "name": "荆棘",
+        "is_drop_buff_count": true,
+        "drop_buff_count": 1,
+        "on_damage_taken": true,
+        "on_damage_taken_effect": [
+            false,
+            1,
+            null,
             -1
         ]
     },

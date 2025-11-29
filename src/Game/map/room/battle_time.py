@@ -4,10 +4,10 @@ from ...core.object import Object
 
 # 引入遗物
 from ...common.relic import Relic
-from ...cards import draw
+from ...cards.is_playing import draw
 
 # 开始战斗
-def battleing(game: Game, enemy_: list[Object]):
+def battleing(game: Game, enemy_: list[Object]) -> bool:
     player = Player(game)
     enemy = enemy_
     Battle = Room(player, enemy)
@@ -26,3 +26,4 @@ def battleing(game: Game, enemy_: list[Object]):
         turn_start_relics = [i for i in Battle.player.relic if i.on_turn_start]
         for relic in turn_start_relics:
             relic.trigger(Battle, "on_turn_start")
+    return Battle.player.HP > 0

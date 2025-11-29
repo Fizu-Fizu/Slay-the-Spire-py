@@ -4,7 +4,7 @@ class Buff:
     # buffID
     buff_id: int
     # buff当前对象
-    object_: list = [True, 0] # [bool: 是否为Player, object_id:]
+    object_: list = [True, 0] # [bool: 是否为Player, position:]
     # buff计数
     buff_count: int = 0
     # 每回合是否掉buff_count
@@ -72,7 +72,7 @@ class Buff:
     # 5. 增减buff :: [效果类型, buffID, 增减的数值: None代表当前buff数值, 是否我方, 是否对群]
     # 99.触发多次 :: [99, [效果类型, 触发效果参数], ...]
 
-    def __init__(self, number_: int, object_: list, buff_count: int):
+    def __init__(self, number_: int, count: int = 1):
         import json
         number = str(number_)
         file_path = r'data\al_buff.json'
@@ -82,7 +82,7 @@ class Buff:
                 data = json.load(file)
             # 检查键名
             if number in data:
-                buff_data = data[number]
+                buff_data: dict = data[number]
                 data_key = buff_data.keys()
                 self.name = buff_data['name']
                 self.buff_id = number_
@@ -90,12 +90,12 @@ class Buff:
                 for i in data_key:
                     if i in self.trigger_variables:
                         setattr(self, i, buff_data[i])
-        
+                self.buff_count = count
         except Exception as e:
             print(f"读取文件时发生错误: {e}")
 
     
-    # 非攻击触发
+    # 非攻击防御触发
     def trigger(self, room, trigger_type: str):
         from ..map.room.room import Room
         from ..core.object import Object
@@ -107,18 +107,21 @@ class Buff:
         if getattr(self, trigger_type):
             # 血量
             if getattr(self, effect_type) == 1:
-                if self.object_[0]:
+                if self.object_[0] and getattr(self, effect_type)[0] == True:
                     obj = room.player
                 else:
                     obj = room.enemy[self.object_[1]]
                 # 触发效果
                 if getattr(self, effect_type)[1] == 1:
                     obj.HP *= 1 + getattr(self, effect_type)[2]
-                    obj.HP = max(obj.HP, 1)
+                    obj.HP = max(obj.HP, 0)
                     obj.HP = min(obj.max_HP, obj.HP)
                 elif getattr(self, effect_type)[1] == 2:
-                    obj.HP += getattr(self, effect_type)[2]
-                    obj.HP = max(obj.HP, 1)
+                    damage_ = getattr(self, effect_type)[2]
+                    if damage_ == None:
+                        damage_ = self.buff_count * getattr(self, effect_type)[3]
+                    obj.HP += damage_
+                    obj.HP = max(obj.HP, 0)
                     obj.HP = min(obj.HP, obj.max_HP)
             # 护盾
             elif getattr(self, effect_type) == 2:
@@ -156,6 +159,18 @@ class Buff:
                         object_[1] = enemy_.object_id
                         enemy_.buff.append(Buff(buff_id, object_, buff_count_))
 
+    # 判断buff是否在列表中
+    def is_in_buff(self, buffs: list['Buff']):
+        if [buff_ for buff_ in buffs if buff_.buff_id == self.buff_id]:
+            return True
+        else:
+            return False
+        
+    # buff添加
+    def buffs_add_buff(self, buffs: list['Buff']):
+        for buff_ in buffs:
+            if buff_.buff_id == self.buff_id:
+                buff_.buff_count += self.buff_count
 
 
 ## 攻击时触发
@@ -204,6 +219,7 @@ def trigger_damage(buffs: list[Buff], base_damage: int, trigger_type: str) -> in
     # 触发效果
     return damage
 
+# 防御触发
 def trigger_block(buffs: list[Buff], base_block: int) -> int:
     block = base_block
     block_effect_type_1_buffs = [

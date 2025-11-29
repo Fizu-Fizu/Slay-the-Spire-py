@@ -2,16 +2,18 @@ import json
 
 # 卡牌
 class Card:
+    # 卡牌稀有度
+    rarity: int = 0
     # 卡牌ID
     card_id: int
     # 名字
-    name: str
+    name: str = ""
     # 描述
-    description: str
+    description: str = ""
     # 消耗的能量，如果是X，此值为None
     spend_energy: int
     # 类型: 1 攻击， 2 技能， 3  能力， 4 状态/诅咒
-    type: int
+    type: int = 0
     # 是否消耗
     delete: bool = False
     # 是否可打出
@@ -55,8 +57,17 @@ class Card:
     #    "buff": [num, [int: ID, int: count, me?],...],
     #    }
 
+    # 能力效果{
+    #    # 是否有BUFF
+    #    "is_buff": False,
+    #     # 增益/减益
+    #    "buff": [num, [int: ID, int: count, me?],...],
+    #    }
+
     trigger_variables = [
+        "rarity",
         "card_id",
+        "description",
         "name",
         "spend_energy",
         "type",
@@ -72,10 +83,10 @@ class Card:
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
                 data = json.load(f)
-            keys = data.keys()
+            keys = data[str(card_id)].keys()
             for key in keys:
                 if key in self.trigger_variables:
-                    setattr(self, key, data[key])
+                    setattr(self, key, data[str(card_id)][key])
         except Exception as e:
             print(f"读取文件时发生错误: {e}")
 
@@ -100,16 +111,25 @@ class Card:
         return False
     
     # 输出卡牌-模版
-    def prt_card(self):
+    def prt_card(self) -> str:
+        type_ = ["攻击", "技能", "能力", "状态"]
         msg = ""
         if self.spend_energy != None:
             msg = f"{self.spend_energy}-"
         else:
             msg = "X-"
-        msg += f"{self.type}"
+        msg += f"{type_[self.type - 1]}\n"
+        msg += f"{self.name}: {self.description}"
+        return msg
 
 
     # 输出牌组
     def prt_pile(self, pile: list['Card']):
         for card in pile:
-            card.prt_card()
+            print(card.prt_card())
+
+    # 升级卡牌
+    def upgrade(self):
+        if self.card_id < 10000:
+            new_card = Card(self.card_id * 10)
+        self = new_card

@@ -2,7 +2,7 @@ import json
 
 class Intent:
     # 意图来源ID
-    source_id: int = 0
+    position: int = 0
     # 意图ID
     intent_id: int = 0
     # 意图：1 攻击 2 回血回盾 3 buff
@@ -16,8 +16,8 @@ class Intent:
     is_me: bool = False
     # 是否对群释放
     is_all: bool = False
-    # 下一个技能索引 如果是随机组，则-4为None在-5随机 -4
-    next_intent: int = 0
+    # 下一个技能索引 如果是随机组，则[0]为None随机池在下面[1]为权重
+    next_intent: list = []
     # 技能池
     intent_pool: list[int] = []
 
@@ -30,14 +30,14 @@ class Intent:
         "intent_pool"
     ]
 
-    def __init__(self,source_id: int, intent_id: int):
-        self.source_id = source_id
+    def __init__(self,position: int, intent_id: int):
+        self.position = position
         self.intent_id = intent_id
         file_path = r"data\al_object.json"
         try: 
             with open(file_path, 'r', encoding='utf-8') as f: 
                 data = json.load(f)
-            intent_data = data[str(source_id)]["intent"][str(intent_id)]
+            intent_data = data[str(position)]["intent"][str(intent_id)]
             intent_data_key = intent_data.keys()
             for i in intent_data_key: 
                 if i in self.trigger_variables: 

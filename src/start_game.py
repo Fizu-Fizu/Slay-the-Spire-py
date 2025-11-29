@@ -6,6 +6,7 @@ from .game.cards.card import Card
 
 class Game:
     """游戏类"""
+    user_ID: int
     name: str
     # 生命值
     max_HP: int
@@ -29,8 +30,9 @@ class Game:
     # 能量最大值&当前能量
     max_energy: int = 3
 
-    def __init__(self, name: str, max_HP: int, gold: int, relic: list[int] = []):
+    def __init__(self, user_ID: int, name: str, max_HP: int, gold: int, relic: list[int] = []):
         """创建游戏"""
+        self.user_ID = user_ID
         self.name = name
         self.max_HP = max_HP
         self.HP = max_HP
@@ -38,6 +40,13 @@ class Game:
         self.relic = [Relic(i) for i in relic]
         self.map = Map()
         self.now_node = self.map.map_all[0][0]
+        temp = []
+        if user_ID == 1:
+            pass
+        elif user_ID == 2:
+            temp = [2001, 2001, 2001, 2001, 2001, 2301, 2301, 2301, 2301, 2301]
+        for i in temp:
+            self.all_card.append(Card(i))
     
     def prt_Game(self):
         """输出信息"""
@@ -50,7 +59,7 @@ class Game:
             )
         print(msg)
 
-def new_game(name: str, max_HP: int, gold: int = 0, relic: list[int] = []) -> Game:
+def new_game(user_ID: int, name: str, max_HP: int, gold: int = 0, relic: list[int] = []) -> Game:
     """创建游戏"""
-    GAME = Game(name, max_HP, gold, relic)
+    GAME = Game(user_ID, name, max_HP, gold, relic)
     return GAME

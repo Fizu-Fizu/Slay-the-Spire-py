@@ -4,6 +4,7 @@ import os
 
 # 导入自定义模块
 from src.start_game import new_game
+from src.game.map.map import Map
 
 # 常量定义
 CHARACTER = [{
@@ -29,25 +30,37 @@ def main():
                 print("请输入正确的数字！")
         except ValueError:
             print("请输入数字！")
-    os.system("cls")
     game_end = False
     GAME = new_game(
+        2,########################################更改###########################################
         CHARACTER[input_num]["name"],
         CHARACTER[input_num]["Max HP"],
         CHARACTER[input_num]["gold"],
         CHARACTER[input_num]["Relic"]
         )
     while not game_end:
-        inp = input("1.地图\n2.++\n0.退出")
-        if inp == "1":
-            os.system("cls")
-            GAME.map.print_map()
-        elif inp == "2":
-            os.system("cls")
+        os.system("cls")
+        if GAME.map.map_all == []:
             GAME.map.plane_add()
-        elif inp == "0":
+        else:
+            GAME.map.print_map()
+        try:
+            inp = int(input(f"m:地图\n输入1~{len(GAME.map.map_all[0])}进入对应节点\n0.退出").strip())
+        except ValueError:
+            if inp == "m":
+                os.system("cls")
+                GAME.map.print_map()
+            else:
+                print("请输入正确的数字！")
+                continue
+        if inp >= 1 and inp <= len(GAME.map.map_all[0]):
+            os.system("cls")
+            GAME.map.select_node(inp - 1, GAME)
+        elif inp == 0:
             os.system("cls")
             game_end = True
+        else:
+            pass
     return 0
 
 

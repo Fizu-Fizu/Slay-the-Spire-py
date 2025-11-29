@@ -1,4 +1,13 @@
 {
+    "-1": {
+        "name": "红宝石钥匙"
+    },
+    "-2": {
+        "name": "绿宝石钥匙"
+    },
+    "-3": {
+        "name": "蓝宝石钥匙"
+    },
     "0": {
         "name": "无"
     },
@@ -42,6 +51,41 @@
                     0
                 ]
             }
+        ]
+    },
+    "1001": {
+        "name": "弹珠袋",
+        "on_battle_start": true,
+        "on_battle_start_effect": [
+            [
+                6,
+                1,
+                1,
+                false
+            ]
+        ]
+    },
+    "1002": {
+        "name": "小血瓶",
+        "on_battle_start": true,
+        "on_battle_start_effect": [
+            [
+                2,
+                2,
+                2
+            ]
+        ]
+    },
+    "1003": {
+        "name": "铜制鳞片",
+        "on_battle_start": true,
+        "on_battle_start_effect": [
+            [
+                6,
+                7,
+                3,
+                true
+            ]
         ]
     }
 }

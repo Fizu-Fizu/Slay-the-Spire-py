@@ -113,25 +113,17 @@ class Map:
                 msg += j.get_icon()
                 msg += " "
             print(msg + "]")
-        for i in reversed(self.history_node):
-            msg = "["
+        for i in self.history_node:
+            msg = "\033[46m["
             msg += i.get_icon()
             msg += " "
-            print(msg + "]")
+            print(msg + "]\033[0m")
 
     # 获取玩家选择节点 
-    def select_node(self):
-        inp = 0
-        while True:
-            try:
-                os.system("cls")
-                inp = int(input("请选择一个节点:(一个整数)").strip())
-            except ValueError:
-                inp = -1
-            if len(self.map_all[0]) == 1 or (inp >= 0 and inp < len(self.map_all[0])):
-                break
-            os.system("cls")
+    def select_node(self, inp: int, game):
+        from ...start_game import Game
+        game: Game = game
         self.history_node.insert(0, self.map_all[0][inp])
         self.map_all.pop(0)
         from .node import enter_node
-        enter_node(self.history_node[0], self.now_plane)
+        enter_node(self.history_node[0], self.now_plane, game)
